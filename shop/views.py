@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView
 from .models import Product, Category
+from cart.forms import CartAddForm
 
 #class Home(TemplateView):
 #    template_name = 'shop/home.html'
@@ -21,10 +22,10 @@ def home(request, slug=None):
     return render(request, 'shop/home.html', {'products': products, 'categories': categories})
 
 
-class ProductDetail(DetailView):
-    model = Product
-    slug_field = 'slug'
-    slug_url_kwarg = 'myslug'
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    form = CartAddForm()
+    return render(request, 'shop/product_detail.html', {'product': product, 'form': form})
 
 
 

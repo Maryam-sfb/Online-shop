@@ -26,7 +26,7 @@
                 {% endthumbnail %}
                 <div class="card-body">
                 <h5 class="card-title text-center">{{ product.name }}</h5>
-                <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary text-center mx-auto" style="display:block">Detail</a>
+                <a href="{{ product.get_absolute_url }}" class="btn btn-primary text-center mx-auto" style="display:block">Detail</a>
                 </div>
                 </div>
             </div>

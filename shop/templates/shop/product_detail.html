@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3><b>{{ object.name }}</b></h3>
-<small>{{ object.created }}</small>
-<p>Price: {{ object.price }}</p>
+<h3><b>{{ product.name }}</b></h3>
+<small>{{ product.created }}</small>
+<p>Price: {{ product.price }}</p>
 <img src="{{ product.image.url }}" height="400px" width="400px"><hr/>
-<p>{{ object.description }}</p>
+<p>{{ product.description }}</p><br/>
+
+<form action="{% url 'cart:cart_add' product.id %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Add to cart" class="btn btn-primary">
+</form>
 {% endblock %}

@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'shop.apps.ShopConfig',
+    'cart.apps.CartConfig',
     'sorl.thumbnail',
 ]
 
