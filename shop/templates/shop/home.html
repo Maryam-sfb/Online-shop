@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %} Home {% endblock %}
+{% block content %}
+
+{% for category in categories %}
+<div class="btn-group">
+    <a href="{{ category.get_absolute_url }}" class="btn btn-primary">{{ category.name }}</a>
+    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+    </button>
+    <div class="dropdown-menu">
+        {% for sub in category.scategory.all %}
+            <a class="dropdown-item" href="{{ sub.get_absolute_url}}">{{ sub.name }}</a>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}<br/><br/>
+
+<div class="container">
+    <div class="row">
+        {% for product in products %}
+            <div class="col-sm-3">
+                <div class="card" style="width: 18rem; display:block">
+                {% thumbnail product.image "300x300" as img %}
+                <img src="{{ img.url }}" class="card-img-top" alt="image" height="230px">
+                {% endthumbnail %}
+                <div class="card-body">
+                <h5 class="card-title text-center">{{ product.name }}</h5>
+                <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary text-center mx-auto" style="display:block">Detail</a>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
