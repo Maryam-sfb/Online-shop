@@ -4,5 +4,11 @@
 {% block content %}
 <p><b>Total price is:</b></p>
 {{ order.get_total_price }} Toman<br/><hr/>
+<form action="{% url 'orders:coupon_apply' order.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Apply" class="btn btn-primary">
+</form>
+<hr/>
 <a class="btn btn-primary">Pay</a>
 {% endblock %}
