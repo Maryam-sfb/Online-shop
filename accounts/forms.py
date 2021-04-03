@@ -41,7 +41,30 @@ class UserRegistrationForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     full_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
 
+
+class ProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['full_name'].help_text = 'Your full name cannot be more than 200 characters.'
+        if not user.is_admin:
+            self.fields['email'].disabled = True
+            self.fields['is_active'].disabled = True
+            self.fields['special_user'].disabled = True
+
+    class Meta:
+        model = User
+        fields = ('email', 'full_name', 'is_active', 'special_user', 'phone_number', 'address')
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'special_user': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'address': forms.Textarea(attrs={'rows': 3, 'col': 10, 'class': 'form-control'})
+            }
 
 
 
